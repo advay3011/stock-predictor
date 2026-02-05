@@ -583,5 +583,6 @@ if __name__ == "__main__":
     main()
 
 def run_prediction(ticker, horizon):
-    ...
-    return output
+    query = f"Analyze {ticker} stock for the last {horizon} days and explain the trend simply."
+    result = agent(query)
+    return result
