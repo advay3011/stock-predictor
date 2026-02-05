@@ -1,21 +1,13 @@
 import streamlit as st
+from stock_predictor_agent import run_prediction
 
-# import your backend agent
-from stock_predictor_agent import run_prediction   # change if your function name differs
+st.title("\U0001f4c8 Stock Predictor Agent")
 
-st.set_page_config(page_title="Stock Predictor Agent")
+ticker = st.text_input("Stock ticker (AAPL, TSLA, NVDA)")
+days = st.slider("Days of history", 5, 60, 30)
 
-st.title("📈 Stock Predictor Agent")
-
-ticker = st.text_input("Enter stock ticker (ex: AAPL)")
-horizon = st.slider("Prediction horizon (days)", 1, 30, 7)
-
-if st.button("Run Prediction"):
-    if not ticker:
-        st.warning("Please enter a ticker.")
-    else:
-        with st.spinner("Analyzing..."):
-            result = run_prediction(ticker, horizon)   # calls your agent
-
-        st.subheader("Prediction Result")
+if st.button("Analyze"):
+    if ticker:
+        with st.spinner("Agent analyzing..."):
+            result = run_prediction(ticker, days)
         st.write(result)
